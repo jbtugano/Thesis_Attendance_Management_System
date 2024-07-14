@@ -1,0 +1,110 @@
+body{
+    background-color:white;
+    .nav-link{border-radius:0px !important
+      ;transition:all 0.5s;
+      width:100px;
+      display:flex;
+      flex-direction:column
+    }
+    .nav-link small{font-size:12px}
+    .nav-link:hover{background-color:rgb(156,44,44)!important}.nav-link .fa{transition: all 1s;font-size:20px}.nav-link:hover .fa{transform: rotate(360deg)}
+}
+
+header{
+    box-shadow: 0 4px 6px -6px #222;
+}
+.nav-link {
+    color: black !important;
+    transition: background-color 0.15s;
+  }
+  .nav-link:hover {
+    background-color: rgb(156,44,44) !important;
+    color: white !important;
+    opacity: 0.6;
+  }
+  .nav-link.active {
+    background-color: white !important;
+    color: black !important;
+  }
+  .nav-link.active:hover{
+    background-color: rgb(156,44,44) !important;
+    color: white;
+  }
+  
+  #main_div{
+    box-shadow: 5px 5px 5px gainsboro;
+    height: auto;
+  }
+  @media (max-width: 576px) {
+    .nav-link span {
+      display: none;
+    }
+    .fs-4,
+    .fs-6 {
+      display: none;
+    }
+    .sidebar-shrink {
+      width: 100px; /* Adjust sidebar width for mobile */
+    }
+  }
+  
+  /* Adjust sidebar width for larger screens */
+  @media (min-width: 576px) and (width: 100%) {
+    .sidebar-shrink {
+      width: 280px; /* Adjust sidebar width for larger screens */
+    }
+  }
+
+  /* Container for sidebar and flexbox */
+    .attendance-container {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    margin-left: 0px;
+    padding-left: 0px;
+    margin-right: 0px;
+    padding-right: 20px;
+  }
+  
+  .attendanceRecords {
+    position: absolute;
+    left: 150px;
+    display: flex;
+    flex-direction: column;
+    width: 700px; /* Adjust width as needed */
+    height: 700px; /* Adjust height as needed */
+    /* background-color: rgb(221, 221, 221); */
+    border-radius: 10px;
+    align-items: flex-start;
+    margin-top: 50px;
+    font-size: 20px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.50);
+  }
+  .attendanceRecords-title {
+    font-weight: bold;
+    font-size: 30px;
+    margin-top: 10px;
+    margin-left: 20px;
+  }
+
+#class_sched_div{
+  margin: 0;
+  display: flex;
+  min-width: 100%;
+  min-height: 100%;
+  position: relative;
+  left: 35vh;
+  top: 20vh;
+  background-color: aquamarine;
+  height: 500px;
+  width: 750px;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px; 
+} 
+#my_class_sched{
+  position: relative;
+  left: 35vh;
+  top: 30vh;
+}
+#header_id{
+  position: absolute;
+}

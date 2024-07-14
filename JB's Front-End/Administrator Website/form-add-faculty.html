@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Setup - Manage Faculty | Admin</title>
+
+    <link rel="icon" type="image/png" href="Images/LPU Logo.png"/>
+
+    <!-- CSS Bootstrap Offline -->
+    <!-- <link rel="stylesheet" href="Bootstrap/css/bootstrap.min.css"> -->
+
+    <!-- CSS Bootstrap Online -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+
+    <style>
+      .nav-link {
+        color: black !important;
+        transition: background-color 0.15s;
+      }
+      .nav-link:hover {
+        background-color: rgb(156,44,44) !important;
+        color: white !important;
+        opacity: 0.6;
+      }
+      .nav-link.active {
+        background-color: rgb(156,44,44) !important;
+        color: white !important;
+      }
+
+        /* Container for sidebar and flexbox */
+        .classSetup-container {
+        display: flex;
+        justify-content: flex-start;
+        align-items: flex-start;
+        margin-left: 0px;
+        padding-left: 0px;
+        margin-right: 0px;
+        padding-right: 20px;
+      }
+
+      form {
+        background-color: #dfdfdf;
+        padding: 50px 50px;
+        border-radius: 10px;
+        display: flex;
+        flex-direction: column;
+        /* margin: 50px 50px; */
+        margin: 50px 50px 50px 350px;
+      }
+
+      .dropdown button {
+        color: black !important;
+        background-color: white !important;
+        cursor: pointer;
+      }
+
+      .dropdown button:hover {
+        background-color: rgb(235, 235, 235) !important;
+      }
+
+      button.btn-primary {
+        background-color: rgb(156,44,44) !important;
+        border-color: rgb(156,44,44) !important;
+        margin-right: 10px;
+      }
+
+      button.btn-primary:hover {
+        background-color: rgb(129, 36, 36) !important;
+        border-color: rgb(129,36,36) !important;
+      }
+
+      .button-container {
+        display: flex;
+        justify-content: flex-end;
+        margin-top: 20px; /* Adjust as needed */
+      }
+    </style>
+</head>
+<body>
+    <header class="d-flex flex-wrap justify-content-center py-3 mb-0 border-bottom sticky-top" style="background-color: rgb(156,44,44);">
+        <a href="admin-dashboard.html" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
+          <img src="Images/LPU Logo White.png" style="width: 100px; height: 100px;" alt="">
+          <span class="fs-1" style="color: white; font-weight: bold; font-family: Arial, Helvetica, sans-serif;">Center for Sports Development <p style="font-size: 15px; font-style: italic; font-weight: 300;">LYCEUM OF THE PHILIPPINES UNIVERSITY - CAVITE</p></span>
+        </a>
+    </header>
+
+  <!-- Container for Sidebar and Flexbox -->
+  <div class="classSetup-container">
+
+    <!-- Sidebar -->
+    <div class="d-flex flex-column flex-shrink-0 p-3 bg-body-tertiary position-fixed overflow-y-auto" style="width: 320px; height: calc(100vh - 133px);">
+      <div class="d-flex justify-content-center mb-0">
+        <a href="/" class="d-flex align-items-center link-body-emphasis text-decoration-none fw-bold">
+          <img src="Images/User Icon.png" style="width: 35px; height: 35px; margin-right: 10px;" alt="">
+          <span class="fs-4">Admin Name 
+            <br><span class="fs-6" style="font-style: italic; font-weight: 400;">Admin, <span>CSD</span></span>
+          </span>
+
+        </a>
+      </div>
+
+      <hr>
+      <ul class="nav nav-pills flex-column mb-auto fs-5">
+        <li class="nav-item">
+          <a href="admin-dashboard.html" class="nav-link" aria-current="page">
+            <img src="Images/Dashboard Icon.png" style="width: 30px; height: 30px; margin-right: 10px;" alt="">
+            DASHBOARD
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link collapsed" href="#classesCollapse" data-bs-toggle="collapse" aria-expanded="false">
+            <img src="Images/Classes Icon.jpg" style="width: 30px; height: 30px; margin-right: 10px;" alt="">
+            CLASSES &#9662
+          </a>
+          <div class="collapse" id="classesCollapse">
+            <ul class="nav flex-column">
+              <li class="nav-item"><a href="admin-classes-availableclasses.html" class="nav-link">&#9656 Available Classes</a></li>
+              <li class="nav-item"><a href="admin-classes-enrolledstudents.html" class="nav-link">&#9656 Enrolled Students</a></li>
+            </ul>
+          </div>
+        </li>
+        <li>
+          <a href="admin-attendance-records.html" class="nav-link">
+            <img src="Images/Attendance Icon.png" style="width: 30px; height: 30px; margin-right: 10px;" alt="">
+            ATTENDANCES
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link collapsed" href="#historyCollapse" data-bs-toggle="collapse" aria-expanded="false">
+            <img src="Images/Database Icon.png" style="width: 30px; height: 30px; margin-right: 10px;" alt="">
+            HISTORY & ARCHIVE &#9662
+          </a>
+          <div class="collapse" id="historyCollapse">
+            <ul class="nav flex-column">
+              <li class="nav-item"><a href="admin-attendance-history.html" class="nav-link">&#9656 Attendance History</a></li>
+              <li class="nav-item"><a href="admin-attendance-archives.html" class="nav-link">&#9656 Archived Attendances</a></li>
+
+            </ul>
+          </div>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link collapsed active" href="#settingsCollapse" data-bs-toggle="collapse" aria-expanded="false">
+            <img src="Images/Settings Icon.png" style="width: 30px; height: 30px; margin-right: 10px;" alt="">
+            CLASS SETUP &#9662
+          </a>
+          <div class="collapse" id="settingsCollapse">
+            <ul class="nav flex-column">
+              <li class="nav-item"><a href="admin-manage-faculty.html" class="nav-link active">&#9656 Manage Faculty</a></li>
+              <li class="nav-item"><a href="admin-manage-activity.html" class="nav-link">&#9656 Manage Activity</a></li>
+              <li class="nav-item"><a href="admin-manage-classes.html" class="nav-link">&#9656 Manage Classes</a></li>
+              <li class="nav-item"><a href="admin-manage-students.html" class="nav-link">&#9656 Manage Students</a></li>
+            </ul>
+          </div>
+        </li>
+        <li class="nav-item">
+          <a href="admin-register-student.html" class="nav-link" aria-current="page">
+            <img src="Images/Register Student Icon.png" style="width: 30px; height: 30px; margin-right: 10px;" alt="">
+            REGISTER STUDENT
+          </a>
+        </li>
+      </ul>
+    </div>
+
+    <!-- <div class="fill-out-form"> -->
+    <form>
+
+      <h2>ADD FACULTY / ADMIN</h2>
+
+      <hr>
+      <div class="row">
+        <div class="col">
+          <input type="text" class="form-control" placeholder="First name" value="">
+        </div>
+        <div class="col">
+          <input type="text" class="form-control" placeholder="Middle Initial" value="">
+        </div>
+        <div class="col">
+          <input type="text" class="form-control" placeholder="Last name" value="">
+        </div>
+      </div>
+      <br>
+
+      <div class="row">
+        <div class="col">
+          <input type="text" class="form-control" placeholder="Employee ID (ex. 2012-1234F)">
+        </div>
+        <div class="col-md-4">
+          <div class="dropdown">
+            <button class="btn btn-secondary dropdown-toggle form-control" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Role
+            </button>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="#">Faculty</a></li>
+              <li><a class="dropdown-item" href="#">Admin</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <br>
+
+      <div class="row">
+        <div class="col">
+          <input type="text" class="form-control" placeholder="Username" value="">
+        </div>
+
+        <div class="col">
+          <input type="text" class="form-control" placeholder="Phone Number (Optional)" value="">
+        </div>
+      </div>
+      <br>
+
+      <div class="row">
+        <div class="col">
+          <input type="text" class="form-control" placeholder="Email Address" value="">
+        </div>
+
+        <div class="col">
+          <input type="password" class="form-control" placeholder="Password" value="">
+        </div>
+      </div>
+      <br>
+
+      <div class="button-container">
+        <button type="button" class="btn btn-primary">Add</button>
+        <button type="button" class="btn btn-secondary" onclick="location.href = 'admin-manage-faculty.html'">Cancel</button>
+      </div>
+
+    </form>
+    <!-- </div> -->
+
+
+    <!-- JS Bootstrap Offline -->
+    <!-- <script src="Bootstrap/js/bootstrap.min.js"></script> -->
+    <!-- <script src="Bootstrap/js/bootstrap.bundle.min.js"></script> -->
+
+
+    <!-- JS Bootstrap Online -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+</body>
+</html>

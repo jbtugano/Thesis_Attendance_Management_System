@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student | Attendance Records</title>
+
+    <!-- CSS Bootstrap Offline
+    <link rel="stylesheet" href="Bootstrap/css/bootstrap.min.css"> -->
+
+    <link rel="icon" type="image/png" href="static/LPU Logo.png"/>
+    <!-- CSS Bootstrap Online -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+
+    <style>
+      .nav-link {
+        color: black !important;
+        transition: background-color 0.15s;
+      }
+      .nav-link:hover {
+        background-color: rgb(156,44,44) !important;
+        color: white !important;
+        opacity: 0.6;
+      }
+      .nav-link.active {
+        background-color: rgb(156,44,44) !important;
+        color: white !important;
+      }
+
+      /* Hide text for small devices */
+      @media (max-width: 576px) {
+        .nav-link span {
+          display: none;
+        }
+        .fs-4,
+        .fs-6 {
+          display: none;
+        }
+        .sidebar-shrink {
+          width: 100px; /* Adjust sidebar width for mobile */
+        }
+      }
+      
+      /* Adjust sidebar width for larger screens */
+      @media (min-width: 576px) and (width: 100%) {
+        .sidebar-shrink {
+          width: 280px; /* Adjust sidebar width for larger screens */
+        }
+      }
+
+      /* Container for sidebar and flexbox */
+        .attendance-container {
+        display: flex;
+        justify-content: flex-start;
+        align-items: flex-start;
+        margin-left: 0px;
+        padding-left: 0px;
+        margin-right: 0px;
+        padding-right: 20px;
+      }
+      
+      .attendanceRecords {
+        display: flex;
+        flex-direction: column;
+        width: 1300px; /* Adjust width as needed */
+        height: 700px; /* Adjust height as needed */
+        /* background-color: rgb(221, 221, 221); */
+        border-radius: 10px;
+        align-items: flex-start;
+        margin-top: 50px;
+        font-size: 20px;
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.50);
+      }
+      .attendanceRecords-title {
+        font-weight: bold;
+        font-size: 30px;
+        margin-top: 10px;
+        margin-left: 20px;
+      }
+
+      /* Adjust spacing between sidebar and flexbox */
+      .sidebar {
+        margin-right: 20px; /* Adjust margin as needed */
+      }
+
+
+      .pathfit, .section, .requiredHours {
+            font-weight: bold;
+            font-size: 20px;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+
+      
+    </style>
+</head>
+<body>
+    <header class="d-flex flex-wrap justify-content-center py-3 mb-0 border-bottom" style="background-color: rgb(156,44,44);">
+        <a href="{{url_for('home')}}" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
+          <img src="static/LPU Logo White.png" style="width: 100px; height: 100px;" alt="">
+          <span class="fs-1" style="color: white; font-weight: bold; font-family: Arial, Helvetica, sans-serif;">Center for Sports Development <p style="font-size: 15px; font-style: italic; font-weight: 300;">LYCEUM OF THE PHILIPPINES UNIVERSITY - CAVITE</p></span>
+        </a>
+    </header>
+
+    <!-- Container for sidebar and flexbox -->
+    <div class="attendance-container">
+      <!-- Sidebar -->
+      <div class="sidebar sidebar-shrink d-flex flex-column flex-shrink-0 p-3 bg-body-tertiary" style="height: calc(100vh - 133px);">
+        <div class="d-flex justify-content-center mb-0">
+          <a href="{{url_for('home')}}" class="d-flex align-items-center link-body-emphasis text-decoration-none fw-bold">
+            <span class="fs-4"> {{current_user.user_role.students.name}}
+              <br><span class="fs-6" style="font-style: italic; font-weight: 400;">Student, <span>{{current_user.user_role.students.section.name}}</span></span>
+            </span>
+
+          </a>
+        </div>
+
+        <hr>
+        <ul class="nav nav-pills flex-column mb-auto fs-5">
+          <li class="nav-item">
+            <a href="{{url_for('home')}}" class="nav-link" aria-current="page">
+              <span class="d-none d-sm-inline">DASHBOARD</span>
+            </a>
+          </li>
+          <li>
+            <a href="{{url_for('view_attendance')}}" class="nav-link active">
+              <span class="d-none d-sm-inline">ATTENDANCES</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link collapsed" href="#settingsCollapse" data-bs-toggle="collapse" aria-expanded="false">
+              <span class="d-none d-sm-inline">SETTINGS &#9662</span>
+            </a>
+            <div class="collapse" id="settingsCollapse">
+              <ul class="nav flex-column">
+                <li class="nav-item"><a href="{{url_for('profile')}}" class="nav-link">&#9656 Account Information</a></li>
+                <li class="nav-item"><a href="{{url_for('change_password')}}" class="nav-link">&#9656 Change Password</a></li>
+              </ul>
+            </div>
+          </li>
+          <li>
+            <a href="{{url_for('logout')}}" class="nav-link logout-link">
+              <span class="d-none d-sm-inline">LOG OUT</span>
+            </a>
+          </li>
+        </ul>
+        <hr>
+      </div>
+
+      <!-- MY ATTENDANCE RECORDS Flexbox content -->
+      <div class="attendanceRecords">
+        <div class="attendanceRecords-title">MY ATTENDANCE RECORDS</div>
+        <hr width="100%">
+        <div class="container text-center text-white p2 bg-light bg-gradient text-uppercase">
+          <table class="table table-responsive table-bordered border-dark table-hover text-center text-capitalize">
+            <tr class="table-dark table-active text-uppercase text-white">
+              <th>#</th>
+              <th>Activity Attended</th>
+              <th>Date</th>
+              <th>Time In</th>
+              <th>Total Accumulated Time</th>
+            </tr>
+          {% for record in records %}
+            {% if record: %}
+            <tr>
+              <td>{{loop.index}}</td>
+              <td>{{record.class_info.activity.name}}</td>
+              <td>{{record.date_time.strftime("%b %d, %Y")}}</td>
+              <td>{{record.date_time.strftime("%I:%M %p")}}</td>
+              <td>2 Hours</td>
+            </tr>
+            {% endif %}
+          {% endfor %}
+
+          </table>
+        </div>
+
+      </div>
+      
+    </div>
+
+    <!-- JS Bootstrap Offline
+    <script src="Bootstrap/js/bootstrap.min.js"></script> -->
+
+
+    <!-- JS Bootstrap Online -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+</body>
+</html>
+
+
+<!-- NOTE KO LANG KUNG PAANO NAGAWA NA NA-ALIGN YUNG FLEXBOX NA ACTIVITY STATUS SA RIGHT-SIDE NI SIDE BAR:
+1. Maglagay ng container div sa taas ng code ni sidebar hanggang sa Div ng dalawang flexbox.
+2. Tanggalin yung both margin left and padding left.
+*Applicable ito sa lahat ng gagawin ko. -->
+

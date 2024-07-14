@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Attendance - History | Admin</title>
+
+    <link rel="icon" type="image/png" href="Images/LPU Logo.png"/>
+
+    <!-- CSS Bootstrap Offline -->
+    <!-- <link rel="stylesheet" href="Bootstrap/css/bootstrap.min.css"> -->
+
+    <!-- CSS Bootstrap Online -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+
+    <style>
+      .nav-link {
+        color: black !important;
+        transition: background-color 0.15s;
+      }
+      .nav-link:hover {
+        background-color: rgb(156,44,44) !important;
+        color: white !important;
+        opacity: 0.6;
+      }
+      .nav-link.active {
+        background-color: rgb(156,44,44) !important;
+        color: white !important;
+      }
+
+      /* Container for sidebar and flexbox */
+      .attendance-container {
+        display: flex;
+        justify-content: flex-start;
+        align-items: flex-start;
+        margin-left: 0px;
+        padding-left: 0px;
+        margin-right: 0px;
+        padding-right: 20px;
+      }
+
+      .attendanceHistory {
+        display: flex;
+        flex-direction: column;
+        width: 1300px; /* Adjust width as needed */
+        height: 700px; /* Adjust height as needed */
+        /* background-color: rgb(221, 221, 221); */
+        border-radius: 10px;
+        align-items: flex-start;
+        margin-bottom: 50px;
+        margin-top: 50px;
+        /* margin-left: 50px; */
+        margin-left: 350px;
+        font-size: 20px;
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.50);
+
+        /* Para hindi sumagad yung height, and para may scroll bar sa flexbox everytime na sasagad */
+        max-height: 700px;
+        overflow-y: auto;
+      }
+      .attendanceHistory-title {
+        font-weight: bold;
+        font-size: 30px;
+        margin-top: 10px;
+        margin-left: 20px;
+      }
+
+      .container-generate-report {
+        display: grid;
+        /* flex-direction: row; */
+        grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 170px;
+        height: 50px;
+        /* width: 100%; */
+        align-items: center;
+        justify-content: center;
+        margin-left: 20px;
+        margin-right: 20px;
+        margin-top: 20px;
+      }
+
+      @media screen and (max-width: 1570px) {
+        .container-generate-report {
+          grid-template-columns: 1fr 1fr 1fr 1fr;
+        }
+      }
+
+      .dropdown select {
+        color: black !important;
+        background-color: white !important;
+        height: 40px;
+        padding-left: 20px;
+        padding-right: 20px;
+        width: 90%;
+        margin-right: 20px;
+        font-size: 17px;
+        cursor: pointer;
+        max-height: 200px; /* Adjust the maximum height as needed */
+        overflow-y: auto;
+      }
+      
+        /* .dropdown select:hover {
+        background-color: rgb(235, 235, 235) !important;
+      } */
+
+      .dropdown-menu {
+        max-height: 200px; /* Adjust the maximum height as needed */
+        overflow-y: auto;
+      }
+
+      .view-report {
+        background-color: rgb(184, 110, 110);
+        color: white;
+        padding-left: 20px;
+        padding-right: 20px;
+        height: 40px;
+        border-radius: 10px;
+        border: none;
+        cursor: pointer;
+        width: 90%;
+        transition: background-color 0.15s;
+      }
+      .view-report:hover{
+        background-color: rgb(158, 94, 94);
+      }
+      .view-report:active {
+        background-color: rgb(136, 81, 81);
+      }
+
+      .attendanceHistory-sub-title {
+        font-weight: bold;
+        font-size: 30px;
+        margin-top: 10px;
+        margin-bottom: 10px;
+        margin-left: 20px;
+      }
+
+      .sort-by-container {
+        /* display: flex; */
+        display: grid;
+        /* flex-direction: row; */
+        grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+        justify-items: start;
+        width: 97%;
+        align-items: center;
+        margin: 20px;
+        background-image: linear-gradient(to top left, rgb(248, 222, 189), rgb(255, 255, 255));
+        border-radius: 10px;
+      }
+
+      .sort-by-container > *:nth-child(2) {
+        justify-self: center;
+      }
+      
+      .sort-by-container > *:nth-child(3) {
+        justify-self: center;
+      }
+
+      @media screen and (max-width: 1500px) {
+        .sort-by-container {
+          grid-template-columns: 1fr 1fr 1fr 1fr;
+          justify-items: center;
+        }
+        .sort-by-container .search-container {
+          grid-column-start: 1; /* Place it at the second column */
+          grid-column-end: span 4; /* Span two columns */
+          text-align: center; /* Center its content */
+          margin-top: 20px;
+        }
+      }
+
+      @media screen and (max-width: 1440px) {
+        .button-Archive {
+          width: 75%;
+        }
+        .button-Export {
+          width: 75%;
+        }
+      }
+
+
+      .search-container {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-items: center;
+      }
+
+      tr[data-href] {
+        cursor: pointer;
+      }
+
+      .export-and-archive-buttons {
+        margin-right: 20px;
+      }
+
+      .button-Export {
+        background-color: rgb(184, 110, 110);
+        color: white;
+        padding: 5px 20px;
+        border-radius: 10px;
+        border: none;
+        cursor: pointer;
+        transition: background-color 0.15s;
+        margin-right: 10px;
+        font-weight: bold;
+      }
+      .button-Export:hover{
+        background-color: rgb(158, 94, 94);
+      }
+      .button-Export:active {
+        background-color: rgb(136, 81, 81);
+      }
+
+      .button-Archive {
+        background-color: rgb(225, 214, 118);
+        color: black;
+        padding: 5px 16px;
+        border-radius: 10px;
+        border: none;
+        cursor: pointer;
+        transition: background-color 0.15s;
+        margin-right: 10px;
+        font-weight: bold;
+      }
+      .button-Archive:hover {
+        background-color: rgb(199, 189, 104);
+      }
+      .button-Archive:active {
+        background-color: rgb(168, 160, 87);
+      }
+    </style>
+</head>
+<body>
+    <header class="d-flex flex-wrap justify-content-center py-3 mb-0 border-bottom sticky-top" style="background-color: rgb(156,44,44);">
+        <a href="admin-dashboard.html" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
+          <img src="Images/LPU Logo White.png" style="width: 100px; height: 100px;" alt="">
+          <span class="fs-1" style="color: white; font-weight: bold; font-family: Arial, Helvetica, sans-serif;">Center for Sports Development <p style="font-size: 15px; font-style: italic; font-weight: 300;">LYCEUM OF THE PHILIPPINES UNIVERSITY - CAVITE</p></span>
+        </a>
+    </header>
+
+
+  <!-- Container for Sidebar and Flexbox -->
+  <div class="attendance-container">
+
+    <!-- Sidebar -->
+    <div class="d-flex flex-column flex-shrink-0 p-3 bg-body-tertiary position-fixed overflow-y-auto" style="width: 320px; height: calc(100vh - 133px);">
+      <div class="d-flex justify-content-center mb-0">
+        <a href="/" class="d-flex align-items-center link-body-emphasis text-decoration-none fw-bold">
+          <img src="Images/User Icon.png" style="width: 35px; height: 35px; margin-right: 10px;" alt="">
+          <span class="fs-4">Admin Name 
+            <br><span class="fs-6" style="font-style: italic; font-weight: 400;">Admin, <span>CSD</span></span>
+          </span>
+
+        </a>
+      </div>
+
+      <hr>
+      <ul class="nav nav-pills flex-column mb-auto fs-5">
+        <li class="nav-item">
+          <a href="admin-dashboard.html" class="nav-link" aria-current="page">
+            <img src="Images/Dashboard Icon.png" style="width: 30px; height: 30px; margin-right: 10px;" alt="">
+            DASHBOARD
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link collapsed" href="#classesCollapse" data-bs-toggle="collapse" aria-expanded="false">
+            <img src="Images/Classes Icon.jpg" style="width: 30px; height: 30px; margin-right: 10px;" alt="">
+            CLASSES &#9662
+          </a>
+          <div class="collapse" id="classesCollapse">
+            <ul class="nav flex-column">
+              <li class="nav-item"><a href="admin-classes-availableclasses.html" class="nav-link">&#9656 Available Classes</a></li>
+              <li class="nav-item"><a href="admin-classes-enrolledstudents.html" class="nav-link">&#9656 Enrolled Students</a></li>
+            </ul>
+          </div>
+        </li>
+
+        <li>
+          <a href="admin-attendance-records.html" class="nav-link">
+            <img src="Images/Attendance Icon.png" style="width: 30px; height: 30px; margin-right: 10px;" alt="">
+            ATTENDANCES
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link collapsed active" href="#historyCollapse" data-bs-toggle="collapse" aria-expanded="false">
+            <img src="Images/Database Icon.png" style="width: 30px; height: 30px; margin-right: 10px;" alt="">
+            HISTORY & ARCHIVE &#9662
+          </a>
+          <div class="collapse" id="historyCollapse">
+            <ul class="nav flex-column">
+              <li class="nav-item"><a href="admin-attendance-history.html" class="nav-link active">&#9656 Attendance History</a></li>
+              <li class="nav-item"><a href="admin-attendance-archives.html" class="nav-link">&#9656 Archived Attendances</a></li>
+
+            </ul>
+          </div>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link collapsed" href="#settingsCollapse" data-bs-toggle="collapse" aria-expanded="false">
+            <img src="Images/Settings Icon.png" style="width: 30px; height: 30px; margin-right: 10px;" alt="">
+            CLASS SETUP &#9662
+          </a>
+          <div class="collapse" id="settingsCollapse">
+            <ul class="nav flex-column">
+              <li class="nav-item"><a href="admin-manage-faculty.html" class="nav-link">&#9656 Manage Faculty</a></li>
+              <li class="nav-item"><a href="admin-manage-activity.html" class="nav-link">&#9656 Manage Activity</a></li>
+              <li class="nav-item"><a href="admin-manage-classes.html" class="nav-link">&#9656 Manage Classes</a></li>
+              <li class="nav-item"><a href="admin-manage-students.html" class="nav-link">&#9656 Manage Students</a></li>
+            </ul>
+          </div>
+        </li>
+        <li class="nav-item">
+          <a href="admin-register-student.html" class="nav-link" aria-current="page">
+            <img src="Images/Register Student Icon.png" style="width: 30px; height: 30px; margin-right: 10px;" alt="">
+            REGISTER STUDENT
+          </a>
+        </li>
+      </ul>
+    </div>
+
+    <!-- ATTENDANCE HISTORY Flexbox content -->
+    <div class="attendanceHistory">
+      <div class="attendanceHistory-title">ATTENDANCE HISTORY</div>
+
+      <div class="container-generate-report">
+
+        <div class="dropdown">
+          <select class="form-select" onchange="location = this.value;">
+            <option selected disabled>Subj. Code</option>
+            <option value="#" class="dropdown-item active">N/A (Default)</option>
+            <option value="#" class="dropdown-item">PATHFIT3</option>
+            <option value="#" class="dropdown-item">PATHFIT4</option>
+          </select>
+        </div>
+
+        <div class="dropdown">
+          <select class="form-select" onchange="location = this.value;">
+            <option selected disabled>Section</option>
+            <option value="#" class="dropdown-item active">N/A (Default)</option>
+            <option value="#" class="dropdown-item">CPE 201</option>
+            <option value="#" class="dropdown-item">IE 201</option>
+            <option value="#" class="dropdown-item">ME 201</option>
+            <option value="#" class="dropdown-item">EE 201</option>
+          </select>
+        </div>
+
+        <div class="dropdown">
+          <select class="form-select" onchange="location = this.value;">
+            <option selected disabled>Semester</option>
+            <option value="#" class="dropdown-item active">N/A (Default)</option>
+            <option value="#" class="dropdown-item">1st</option>
+            <option value="#" class="dropdown-item">2nd</option>
+          </select>
+        </div>
+        
+        <div class="dropdown">
+          <select class="form-select" onchange="location = this.value;">
+            <option selected disabled>Term</option>
+            <option value="#" class="dropdown-item active">N/A (Default)</option>
+            <option value="#" class="dropdown-item">Prelims</option>
+            <option value="#" class="dropdown-item">Midterms</option>
+            <option value="#" class="dropdown-item">Finals</option>
+          </select>
+        </div>
+
+        <div class="dropdown">
+          <select class="form-select" onchange="location = this.value;">
+            <option selected disabled>Month</option>
+            <option value="#" class="dropdown-item active">N/A (Default)</option>
+            <option value="#" class="dropdown-item">January</option>
+            <option value="#" class="dropdown-item">February</option>
+            <option value="#" class="dropdown-item">March</option>
+            <option value="#" class="dropdown-item">April</option>
+            <option value="#" class="dropdown-item">May</option>
+            <option value="#" class="dropdown-item">June</option>
+            <option value="#" class="dropdown-item">July</option>
+            <option value="#" class="dropdown-item">August</option>
+            <option value="#" class="dropdown-item">September</option>
+            <option value="#" class="dropdown-item">October</option>
+            <option value="#" class="dropdown-item">November</option>
+            <option value="#" class="dropdown-item">December</option>
+          </select>
+        </div>
+
+        <div class="dropdown">
+          <select class="form-select" onchange="location = this.value;">
+            <option selected disabled>Day</option>
+            <option value="#" class="dropdown-item active">N/A (Default)</option>
+            <option value="#" class="dropdown-item">1</option>
+            <option value="#" class="dropdown-item">2</option>
+            <option value="#" class="dropdown-item">3</option>
+            <option value="#" class="dropdown-item">4</option>
+            <option value="#" class="dropdown-item">5</option>
+            <option value="#" class="dropdown-item">6</option>
+            <option value="#" class="dropdown-item">7</option>
+            <option value="#" class="dropdown-item">8</option>
+            <option value="#" class="dropdown-item">9</option>
+            <option value="#" class="dropdown-item">10</option>
+            <option value="#" class="dropdown-item">11</option>
+            <option value="#" class="dropdown-item">12</option>
+            <option value="#" class="dropdown-item">13</option>
+            <option value="#" class="dropdown-item">14</option>
+            <option value="#" class="dropdown-item">15</option>
+            <option value="#" class="dropdown-item">16</option>
+            <option value="#" class="dropdown-item">17</option>
+            <option value="#" class="dropdown-item">18</option>
+            <option value="#" class="dropdown-item">19</option>
+            <option value="#" class="dropdown-item">20</option>
+            <option value="#" class="dropdown-item">21</option>
+            <option value="#" class="dropdown-item">22</option>
+            <option value="#" class="dropdown-item">23</option>
+            <option value="#" class="dropdown-item">24</option>
+            <option value="#" class="dropdown-item">25</option>
+            <option value="#" class="dropdown-item">26</option>
+            <option value="#" class="dropdown-item">27</option>
+            <option value="#" class="dropdown-item">28</option>
+            <option value="#" class="dropdown-item">29</option>
+            <option value="#" class="dropdown-item">30</option>
+            <option value="#" class="dropdown-item">31</option>
+          </select>
+        </div>
+        
+        <div class="dropdown">
+          <select class="form-select" onchange="location = this.value;">
+            <option selected disabled>A.Y.</option>
+            <option value="#" class="dropdown-item active">N/A (Default)</option>
+            <option value="#" class="dropdown-item">2022-23</option>
+            <option value="#" class="dropdown-item">2023-24</option>
+            <option value="#" class="dropdown-item">2024-25</option>
+          </select>
+        </div>
+
+        <button class="view-report" type="submit">View History</button>
+
+      </div>
+
+      <br>
+      <hr width="100%">
+
+      <!-- Sort By and Search -->
+
+      <div class="sort-by-container">
+
+        <div class="export-and-archive-buttons">
+          <button class="button-Export">Export</button>
+          <button class="button-Archive">Archive</button>
+        </div>
+
+        <div class="dropdown" style="display: flex; flex-direction: column; align-items: center;">
+          Sort
+          <select class="form-select" onchange="location = this.value;">
+            <option selected disabled>Select</option>
+            <option value="#" class="dropdown-item">Name</option>
+            <option value="#" class="dropdown-item">Course</option>
+            <option value="#" class="dropdown-item">Progress</option>
+          </select>
+        </div>
+
+        <div class="dropdown" style="display: flex; flex-direction: column; align-items: center;">
+          Order
+          <select class="form-select" onchange="location = this.value;">
+            <option selected disabled>Select</option>
+            <option value="#" class="dropdown-item">Asc</option>
+            <option value="#" class="dropdown-item">Desc</option>
+          </select>
+        </div>
+
+        <div style="display: flex; flex-direction: row; align-items: center;">
+          Page:
+          <select class="form-select" style="height: 40px; align-items: center; margin-left: 15px; margin-right: 10px; width: 70px; cursor: pointer;">
+            <option selected value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="9">9</option>
+            <option value="10">10</option>
+          </select>
+          of <span style="padding: 6px;">10</span>
+        </div>
+        
+
+        <div class="search-container">
+          <input type="text" name="search" style="height: 40px; padding-left: 20px; padding-right: 20px; border-radius: 10px; border-width: 0.5px;" placeholder="Search here... " id="">
+          <button style="border-width: 0.5px; border-radius: 10px;">&#128269</button>
+        </div>
+      </div>
+
+      
+
+      <div class="container text-center text-white p2 bg-light bg-gradient text-uppercase">
+        <table class="table table-responsive table-bordered border-dark table-hover text-center text-capitalize fs-6">
+          <tr class="table-dark table-active text-uppercase text-white">
+            <th>#</th>
+            <th>Student Name</th>
+            <th>Student Number</th>
+            <th>Program</th>
+            <th>Section</th>
+            <th>Progress Status</th>
+          </tr>
+          <tr data-href="details-admin-attendance-history.html">
+            <td>1</td>
+            <td>ABAD, JULIUS</td>
+            <td>2023-2-12345</td>
+            <td>BS CpE</td>
+            <td>CPE 201</td>
+            <td>
+              <div class="progress">
+                <div class="progress-bar bg-success" role="progressbar" style="width: 45%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">45%</div>
+              </div>
+            </td>
+          </tr>
+
+          <tr data-href="details-admin-attendance-history.html">
+            <td>2</td>
+            <td>BELARDO, JOSE</td>
+            <td>2023-2-12346</td>
+            <td>BS CE</td>
+            <td>CE 201</td>
+            <td>
+              <div class="progress">
+                <div class="progress-bar bg-success" role="progressbar" style="width: 20%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">20%</div>
+              </div>
+            </td>
+          </tr>
+
+          <tr data-href="details-admin-attendance-history.html">
+            <td>3</td>
+            <td>CRUZ, GARY</td>
+            <td>2023-2-12347</td>
+            <td>BS IE</td>
+            <td>IE 201</td>
+            <td>
+              <div class="progress">
+                <div class="progress-bar bg-success" role="progressbar" style="width: 100%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">100%</div>
+              </div>
+            </td>
+          </tr>
+
+          
+        </table>
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- JS Bootstrap Offline -->
+  <!-- <script src="Bootstrap/js/bootstrap.min.js"></script> -->
+  <!-- <script src="Bootstrap/js/bootstrap.bundle.min.js"></script> -->
+
+  <script>
+    //Linking table rows to web link - making table rows clickable
+    document.addEventListener("DOMContentLoaded", () => {
+      const rows = document.querySelectorAll("tr[data-href]");
+      rows.forEach(row => {
+        row.addEventListener("click", () => {
+          window.location.href = row.dataset.href;
+        })
+      });
+    });
+  </script>
+
+  <script>
+    // Get the dropdown menu element
+    const dropdown = document.getElementById('myDropdown');
+
+    // Add event listener to the dropdown menu
+    dropdown.addEventListener('click', (event) => {
+        if (event.target.classList.contains('dropdown-checkbox')) {
+            event.stopPropagation();
+        }
+    });
+  </script>
+
+    <!-- JS Bootstrap Online -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+</body>
+</html>

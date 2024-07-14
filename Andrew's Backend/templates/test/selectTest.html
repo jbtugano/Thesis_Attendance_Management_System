@@ -1,0 +1,16 @@
+{% from 'bootstrap5/form.html' import render_form %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form method="POST">
+    {{ form.csrf_token }}
+    {{form.name}} <br>
+    {{form.section_choices.label}}: {{form.section_choices}} <br>
+    Form Name Data: {{ form.name.data }} <br>
+    <a href="{{url_for('selectTest', section=form.section_choices.data)}}">{{form.submit}}</a>
+</form>
+</body>
+</html>

@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Setup - Manage Classes | Admin</title>
+
+    <link rel="icon" type="image/png" href="/static/LPU Logo.png"/>
+
+    <!-- CSS Bootstrap Offline -->
+    <!-- <link rel="stylesheet" href="Bootstrap/css/bootstrap.min.css"> -->
+
+    <!-- CSS Bootstrap Online -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+
+    <style>
+      .nav-link {
+        color: black !important;
+        transition: background-color 0.15s;
+      }
+      .nav-link:hover {
+        background-color: rgb(156,44,44) !important;
+        color: white !important;
+        opacity: 0.6;
+      }
+      .nav-link.active {
+        background-color: rgb(156,44,44) !important;
+        color: white !important;
+      }
+
+        /* Container for sidebar and flexbox */
+        .classSetup-container {
+        display: flex;
+        justify-content: flex-start;
+        align-items: flex-start;
+        margin-left: 0px;
+        padding-left: 0px;
+        margin-right: 0px;
+        padding-right: 20px;
+      }
+
+      form {
+        background-color: #dfdfdf;
+        padding: 50px 50px;
+        border-radius: 10px;
+        display: flex;
+        flex-direction: column;
+        /* margin: 50px 50px; */
+        margin: 50px 50px 50px 350px;
+        max-width: 800px;
+        width: 100%;
+      }
+
+      .dropdown button {
+        color: black !important;
+        background-color: white !important;
+        cursor: pointer;
+      }
+
+      .dropdown button:hover {
+        background-color: rgb(235, 235, 235) !important;
+      }
+
+      button.btn-primary {
+        background-color: rgb(156,44,44) !important;
+        border-color: rgb(156,44,44) !important;
+        margin-right: 10px;
+      }
+
+      button.btn-primary:hover {
+        background-color: rgb(129, 36, 36) !important;
+        border-color: rgb(129,36,36) !important;
+      }
+
+      .button-container {
+        display: flex;
+        justify-content: flex-end;
+        margin-top: 20px; /* Adjust as needed */
+      }
+
+        /* Adjust select dropdown height */
+        select[multiple] {
+        height: auto !important;
+        min-height: 100px; /* Set a minimum height */
+        max-height: 200px; /* Set a maximum height */
+        overflow-y: auto;
+      }
+    </style>
+</head>
+<body>
+      <header class="d-flex flex-wrap justify-content-center py-3 mb-0 border-bottom sticky-top" style="background-color: rgb(156,44,44);">
+        <a href="{{url_for('csd_admin_dashboard')}}" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
+          <img src="/static/LPU Logo White.png" style="width: 100px; height: 100px;" alt="">
+          <span class="fs-1" style="color: white; font-weight: bold; font-family: Arial, Helvetica, sans-serif;">Center for Sports Development <p style="font-size: 15px; font-style: italic; font-weight: 300;">LYCEUM OF THE PHILIPPINES UNIVERSITY - CAVITE</p></span>
+        </a>
+    </header>
+
+  <!-- Container for Sidebar and Flexbox -->
+  <div class="classSetup-container">
+
+    <!-- Sidebar -->
+    <div class="d-flex flex-column flex-shrink-0 p-3 bg-body-tertiary position-fixed overflow-y-auto" style="width: 320px; height: calc(100vh - 133px);">
+      <div class="d-flex justify-content-center mb-0">
+        <a href="{{url_for('csd_admin_dashboard')}}" class="d-flex align-items-center link-body-emphasis text-decoration-none fw-bold">
+          <span class="fs-4">Admin Name
+            <br><span class="fs-6" style="font-style: italic; font-weight: 400;">Admin, <span>CSD</span></span>
+          </span>
+
+        </a>
+      </div>
+
+      <hr>
+      <ul class="nav nav-pills flex-column mb-auto fs-5">
+        <li class="nav-item">
+          <a href="{{url_for('csd_admin_dashboard')}}" class="nav-link" aria-current="page">
+            <img src="/static/Dashboard Icon.png" style="width: 30px; height: 30px; margin-right: 10px;" alt="">
+            DASHBOARD
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link collapsed" href="#classesCollapse" data-bs-toggle="collapse" aria-expanded="false">
+            <img src="/static/Classes Icon.jpg" style="width: 30px; height: 30px; margin-right: 10px;" alt="">
+            CLASSES &#9662
+          </a>
+          <div class="collapse" id="classesCollapse">
+            <ul class="nav flex-column">
+              <li class="nav-item"><a href="{{url_for('csd_admin_available_classes')}}" class="nav-link">&#9656 Available Classes</a></li>
+              <li class="nav-item"><a href="{{url_for('csd_admin_enrolled_students')}}" class="nav-link">&#9656 Enrolled Students</a></li>
+            </ul>
+          </div>
+        </li>
+        <li>
+          <a href="{{url_for('csd_admin_attendances')}}" class="nav-link">
+            <img src="/static/Attendance Icon.png" style="width: 30px; height: 30px; margin-right: 10px;" alt="">
+            ATTENDANCES
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link collapsed" href="#historyCollapse" data-bs-toggle="collapse" aria-expanded="false">
+            <img src="/static/Database Icon.png" style="width: 30px; height: 30px; margin-right: 10px;" alt="">
+            HISTORY & ARCHIVE &#9662
+          </a>
+          <div class="collapse" id="historyCollapse">
+            <ul class="nav flex-column">
+              <li class="nav-item"><a href="{{url_for('csd_admin_attendance_history')}}" class="nav-link">&#9656 Attendance History</a></li>
+              <li class="nav-item"><a href="{{url_for('csd_admin_archived_attendance')}}" class="nav-link">&#9656 Archived Attendances</a></li>
+
+            </ul>
+          </div>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link collapsed active" href="#settingsCollapse" data-bs-toggle="collapse" aria-expanded="false">
+            <img src="/static/Settings Icon.png" style="width: 30px; height: 30px; margin-right: 10px;" alt="">
+            CLASS SETUP &#9662
+          </a>
+          <div class="collapse" id="settingsCollapse">
+            <ul class="nav flex-column">
+              <li class="nav-item"><a href="{{url_for('csd_admin_manage_faculty')}}" class="nav-link">&#9656 Manage Faculty</a></li>
+              <li class="nav-item"><a href="{{url_for('csd_admin_manage_activity')}}" class="nav-link">&#9656 Manage Activity</a></li>
+              <li class="nav-item"><a href="{{url_for('csd_admin_manage_classes')}}" class="nav-link active">&#9656 Manage Classes</a></li>
+              <li class="nav-item"><a href="{{url_for('csd_admin_manage_students')}}" class="nav-link">&#9656 Manage Students</a></li>
+            </ul>
+          </div>
+        </li>
+        <li class="nav-item">
+          <a href="{{url_for('csd_admin_register_student')}}" class="nav-link" aria-current="page">
+            <img src="/static/Register Student Icon.png" style="width: 30px; height: 30px; margin-right: 10px;" alt="">
+            REGISTER STUDENT
+          </a>
+        </li>
+      </ul>
+    </div>
+
+    <!-- <div class="fill-out-form"> -->
+    <form method="post">
+      {{form.csrf_token}}
+      <h2>ADD CLASSES</h2>
+      {% with messages = get_flashed_messages() %}
+          {% if messages %}
+              {% for message in messages %}
+                <div class="flash-message">{{ message }}</div>
+              {% endfor %}
+          {% endif %}
+      {% endwith %}
+      <hr>
+      <div class="mb-3 row">
+
+        <label for="inputSection" class="col-sm-5 col-form-label fw-bold">Class / Section Name: </label>
+        <div class="col-sm-7">
+          {{form.sec_name(class="form-control", placeholder="(Example format: CPE 201)")}}
+        </div>
+      </div>
+
+      <div class="mb-3 row">
+        <label for="inputRoom" class="col-sm-5 col-form-label fw-bold">Room: </label>
+        <div class="col-sm-7">
+          <select class="form-select" id="inputRoom" >
+            <option selected>SRDB</option>
+            <!-- Add more options as needed -->
+          </select>
+        </div>
+      </div>
+
+      <div class="mb-3 row">
+        <label for="inputFaculty" class="col-sm-5 col-form-label fw-bold">Instructor / Faculty: </label>
+        <div class="col-sm-7">
+          {{form.fac_name(class="form-select")}}
+        </div>
+      </div>
+
+      <div class="mb-3 row">
+        <label for="inputDay" class="col-sm-5 col-form-label fw-bold">Day Assigned: </label>
+        <div class="col-sm-7">
+          {{form.day_select(class="form-select")}}
+
+        </div>
+      </div>
+
+      <div class="mb-3 row">
+        <label for="inputTime" class="col-sm-5 col-form-label fw-bold">Time Start: </label>
+        <div class="col-sm-5" style="display: flex; flex-direction: row; align-items: center;">
+          {{form.time_select(class='form-select')}}
+
+        </div>
+      </div>
+
+      <div class="mb-3 row">
+        <label for="inputActivity" class="col-sm-5 col-form-label fw-bold">Activity: </label>
+        <div class="col-sm-7">
+          {{form.act_select(class='form-select')}}
+        </div>
+      </div>
+      <br>
+
+
+      <div class="button-container">
+        {{form.add_button(class="btn btn-primary")}}
+        <a href="{{url_for('csd_admin_manage_classes_add')}}"><button type="button" class="btn btn-secondary">Reset</button></a>
+      </div>
+
+    </form>
+    <!-- </div> -->
+
+
+    <!-- JS Bootstrap Offline -->
+    <!-- <script src="Bootstrap/js/bootstrap.min.js"></script> -->
+    <!-- <script src="Bootstrap/js/bootstrap.bundle.min.js"></script> -->
+    <script src="Bootstrap/multiselect-dropdown.js"></script>
+
+
+    <!-- JS Bootstrap Online -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap-multiselect@0.9.13/dist/js/bootstrap-multiselect.min.js"></script> -->
+
+</body>
+</html>

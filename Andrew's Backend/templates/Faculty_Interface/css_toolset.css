@@ -1,0 +1,199 @@
+.nav-link {
+    color: black !important;
+    transition: background-color 0.15s;
+  }
+  .nav-link:hover {
+    background-color: rgb(156,44,44) !important;
+    color: white !important;
+    opacity: 0.6;
+  }
+  .nav-link.active {
+    background-color: white !important;
+    color: black !important;
+  }
+  .nav-link.active:hover{
+    background-color: rgb(156,44,44) !important;
+    color: white;
+  }
+  
+  #main_div{
+    box-shadow: 5px 5px 5px gainsboro;
+  }
+
+    body{
+      background-color:white;
+      .nav-link{border-radius:0px !important
+        ;transition:all 0.5s;
+        width:100px;
+        display:flex;
+        flex-direction:column
+      }
+      .nav-link small{font-size:12px}
+      .nav-link:hover{background-color:rgb(156,44,44)!important}.nav-link .fa{transition: all 1s;font-size:20px}.nav-link:hover .fa{transform: rotate(360deg)}
+      }
+
+    header{
+      box-shadow: 0 4px 6px -6px #222;
+    }
+
+    .report_nav{
+      position: absolute;
+      left:300px;
+      top: 175px;
+      background-color: aqua;
+    }
+    .report_nav_drpDwn{
+      background-color: green;
+      position: absolute;
+      left:300px;
+      top: 250px;
+    }
+    .nav_tab_att{
+      position: absolute;
+      left: 300px;
+      top: 300px;
+    }
+
+body{
+  position: relative;
+}
+.report_div{
+  position: absolute;
+  display: flex;
+  justify-content: space-between;
+  width: auto;
+  height: auto;
+  left: 150px;
+  margin-top: 50px;
+  p{
+    font-family: Arial, Helvetica, sans-serif;
+    color: gray;
+    font-weight: 10px;
+    text-transform: uppercase;
+  }
+  gap: 20px;
+}
+
+.box_field{
+  display: block;
+  height: auto ;
+  width: auto;
+  border-radius: 5px;
+  gap: 20px;  
+  padding: 20px;
+  border-style: solid;
+}
+
+.box{
+  height: 25px;
+  width: 175px;
+  justify-content: center;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+.button_report{
+  position: absolute;
+  margin-top: 200px;
+  left: 150px;
+  background-color: rgb(156,44,44);
+  color: aliceblue;
+  border-radius: 5px;
+  font-size: 18px;
+}
+.report_table{
+  margin: 20px,20px,20px,20px;
+  position: absolute;
+  margin-top: 300px;
+  left: 150px;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+  display: block;
+  flex-direction: column;
+  width: auto; /* Adjust width as needed */
+  height: auto; /* Adjust height as needed */
+    /* background-color: rgb(221, 221, 221); */
+  border-radius: 10px;
+    font-size: 10px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.50);
+  font-family: Arial, Helvetica, sans-serif;
+  text-transform: uppercase;
+}
+.text_th{
+  font-size: 10px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+#ex_bttn{
+  background-color: rgb(156,44,44);
+  color: aliceblue;
+  border-radius: 5px;
+  position: absolute;
+  margin-top: 20px;
+  font-size: 18px;
+}
+
+.change_pass_div{
+  margin-top: 20px;
+  position: absolute;
+  left: 200px;
+  display: inline-block;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+  border-radius: 10px;
+  height: 400px;
+  width: 400px;
+  h1{
+    margin-top: 20px;
+    text-align: center;
+    text-transform: uppercase ;
+    font-size: 30px;
+  }
+}
+#div_form{
+  text-align: center;
+}
+#change_pass_bttn{
+  background-color: rgb(156,44,44);
+  color: whitesmoke;
+
+}
+.profile_prof{
+  h1{
+    margin-top: 20px;
+    text-transform: uppercase ;
+  }
+  position: absolute;
+  margin-top: 50px;
+  background-color: whitesmoke;
+  left: 200px;
+  height: 650px;
+  width: 1000px;
+  min-width: auto;
+  min-height: auto;
+  border-radius: 10px;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+  text-align: center;
+}
+.select-picture{
+  background-color: aliceblue;
+  height: 40px;
+  border-radius: 10px;
+}
+.remove-picture{
+  background-color: rgb(156,44,44);
+  color: aliceblue;
+  height: 40px;
+  border-radius: 10px;
+}
+.save-button{
+  background-color: aliceblue;
+  height: 40px;
+  border-radius: 10px;
+}
+.cancel-button{
+  background-color: rgb(156,44,44);
+  color: aliceblue;
+  height: 40px;
+  border-radius: 10px;
+}
+.faculty_input{
+  height: 40px;
+  border-radius: 10px;
+  width: 300px;
+}

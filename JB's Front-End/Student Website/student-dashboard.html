@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard | Student</title>
+
+    <link rel="icon" type="image/png" href="Images/LPU Logo.png"/>
+
+    <!-- CSS Bootstrap Offline -->
+    <!-- <link rel="stylesheet" href="Bootstrap/css/bootstrap.min.css"> -->
+
+    <!-- CSS Bootstrap Online -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+
+    <style>
+      .nav-link {
+        color: black !important;
+        transition: background-color 0.15s;
+      }
+      .nav-link:hover {
+        background-color: rgb(156,44,44) !important;
+        color: white !important;
+        opacity: 0.6;
+      }
+      .nav-link.active {
+        background-color: rgb(156,44,44) !important;
+        color: white !important;
+      }
+
+      /* Hide text for small devices */
+      @media (max-width: 745px) {
+        .nav-link span {
+          display: none;
+        }
+        .fs-4,
+        .fs-6 {
+          display: none;
+        }
+        .sidebar-shrink {
+          width: 100px; /* Adjust sidebar width for mobile */
+        }
+      }
+      
+      /* Adjust sidebar width for larger screens */
+      @media (min-width: 745px) and (width: 100%) {
+        .sidebar-shrink {
+          width: 280px; /* Adjust sidebar width for larger screens */
+        }
+      }
+
+      /* Container for sidebar and flexbox */
+      .dashboardcontainer {
+        display: flex;
+        justify-content: flex-start;
+        align-items: flex-start;
+        margin-left: 0px;
+        padding-left: 0px;
+        margin-right: 0px;
+        padding-right: 0px;
+      }
+      
+      .activityStatus {
+        display: flex;
+        flex-direction: column;
+        width: 500px; /* Adjust width as needed */
+        height: 600px; /* Adjust height as needed */
+        background-color: rgb(255, 255, 255);
+        align-items: center;
+        margin-bottom: 20px;
+        font-size: 20px;
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.50);
+        transition: background-color 0.15s;
+      }
+      .activityStatus-title {
+        font-weight: bold;
+        font-size: 30px;
+        margin-top: 10px;
+        align-items: center;
+        justify-content: center;
+      }
+      .activityStatus-subinfos {
+        display: flex;
+        flex-direction: column;
+        font-size: 20px;
+        margin-top: 20px;
+        line-height: 50px;
+      }
+      .course-code, .section, .hours-rendered, .progress-text {
+        margin-bottom: 10px;
+      }
+      .span-infos {
+        font-weight: bold;
+      }
+
+      .weeklysched {
+        display: flex;
+        flex-direction: column;
+        width: 750px; /* Adjust width as needed */
+        height: 600px; /* Adjust height as needed */
+        /* background-image: linear-gradient(to bottom right, rgb(255, 255, 255), rgb(233, 220, 165)); */
+        background-color: rgb(255, 255, 255);
+        align-items: center;
+        margin-bottom: 20px;
+        padding-left: 10px;
+        padding-right: 10px;
+        font-size: 20px;
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.50);
+        transition: background-color 0.15s;
+        overflow-y: auto;
+      }
+
+      .weeklysched-title {
+        font-weight: bold;
+        font-size: 30px;
+        margin-top: 10px;
+        align-items: center;
+        justify-content: center;
+      }
+
+
+      .dashboard-overview {
+        /* display: flex;
+        flex-direction: row; */
+        display: grid;
+        grid-template-columns: 4fr 5fr;
+        width: 1500px; /* Adjust width as needed */
+        height: 750px; /* Adjust height as needed */
+        background-image: linear-gradient(to top right, rgb(156,44,44), rgb(255, 255, 255));
+        margin: 20px;
+        padding: 20px;
+        margin-left: 280px;
+        align-items: center;
+        justify-content: space-evenly;
+        justify-items: center;
+        border-radius: 10px;
+
+        /* Para hindi sumagad yung height, and para may scroll bar sa flexbox everytime na sasagad */
+        max-height: 750px;
+        overflow-y: auto;
+      }
+
+      /* NOTE: yung media query parang if-else statement lang siya pero pang Screen Adjustments lang */
+      @media (max-width: 1600px) {
+        .weeklysched {
+          width: 600px;
+        }
+      }
+
+      @media (max-width: 1460px) {
+        .dashboard-overview {
+          /* display: flex;
+          flex-direction: column; */
+          grid-template-columns: 1fr;
+        }
+        .weeklysched {
+          margin-bottom: 50px;
+        }
+
+      }
+
+      /* Smaller width for activityStatus and weeklysched at 870px screen width */
+      @media (max-width: 950px) {
+      .activityStatus,
+      .weeklysched {
+        width: 400px; /* Adjust smaller width */
+      }
+      }
+
+      @media (max-width: 745px) {
+        .dashboard-overview {
+          margin-left: 120px;
+        }
+      }
+
+
+      /* Adjust spacing between sidebar and flexbox */
+      .sidebar {
+        margin-right: 20px; /* Adjust margin as needed */
+      }
+
+      .pagination .page-link {
+        color: white !important;
+        background-color: gray !important;
+      }
+
+    
+    </style>
+</head>
+<body>
+    <header class="d-flex flex-wrap justify-content-center py-3 mb-0 border-bottom sticky-top" style="background-color: rgb(156,44,44);">
+        <a href="student-dashboard.html" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
+          <img src="Images/LPU Logo White.png" style="width: 100px; height: 100px;" alt="">
+          <span class="fs-1" style="color: white; font-weight: bold; font-family: Arial, Helvetica, sans-serif;">Center for Sports Development <p style="font-size: 15px; font-style: italic; font-weight: 300;">LYCEUM OF THE PHILIPPINES UNIVERSITY - CAVITE</p></span>
+        </a>
+    </header>
+
+    <!-- Container for sidebar and flexbox -->
+    <div class="dashboardcontainer">
+      <!-- Sidebar -->
+      <div class="sidebar sidebar-shrink d-flex flex-column flex-shrink-0 p-3 bg-body-tertiary position-fixed overflow-y-auto" style="height: calc(100vh - 133px);">
+        <div class="d-flex justify-content-center mb-0">
+          <a href="/" class="d-flex align-items-center link-body-emphasis text-decoration-none fw-bold">
+            <img src="Images/User Icon.png" style="width: 35px; height: 35px; margin-right: 10px;" alt="">
+            <span class="fs-4">Juan Dela Cruz 
+              <br><span class="fs-6" style="font-style: italic; font-weight: 400;">Student, <span>ENG101</span></span>
+            </span>
+
+          </a>
+        </div>
+
+        <hr>
+        <ul class="nav nav-pills flex-column mb-auto fs-5">
+          <li class="nav-item">
+            <a href="student-dashboard.html" class="nav-link active" aria-current="page">
+              <img src="Images/Dashboard Icon.png" style="width: 30px; height: 30px; margin-right: 10px;" alt="">
+              <span class="d-none d-sm-inline">DASHBOARD</span>
+            </a>
+          </li>
+          <li>
+            <a href="student-attendance-records.html" class="nav-link">
+              <img src="Images/Attendance Icon.png" style="width: 30px; height: 30px; margin-right: 10px;" alt="">
+              <span class="d-none d-sm-inline">ATTENDANCES</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link collapsed" href="#settingsCollapse" data-bs-toggle="collapse" aria-expanded="false">
+              <img src="Images/Settings Icon.png" style="width: 30px; height: 30px; margin-right: 10px;" alt="">
+              <span class="d-none d-sm-inline">SETTINGS &#9662</span>
+            </a>
+            <div class="collapse" id="settingsCollapse">
+              <ul class="nav flex-column">
+                <li class="nav-item"><a href="student-settings-accountinfo.html" class="nav-link">&#9656 Account Information</a></li>
+                <li class="nav-item"><a href="student-settings-password.html" class="nav-link">&#9656 Change Password</a></li>
+              </ul>
+            </div>
+          </li>
+          <li>
+            <a href="#" class="nav-link logout-link">
+              <img src="Images/Logout Icon.png" style="width: 30px; height: 30px; margin-right: 10px;" alt="">
+              <span class="d-none d-sm-inline">LOG OUT</span>
+            </a>
+          </li>
+        </ul>
+        <hr>
+      </div>
+
+      <div class="dashboard-overview">
+
+      <!-- ACTIVITY STATUS Flexbox content -->
+      <div class="activityStatus">
+        <div class="activityStatus-title">ACTIVITY STATUS</div>
+        <hr width="100%">
+        <div class="activityStatus-subinfos">
+          <div class="course-code">Course Code: <span class="span-infos">PATHFIT3</span></div>
+          <div class="section">Section: <span class="span-infos">ENG101</span></div>
+          <div class="hours-rendered">Hours Rendered: <span class="span-infos">18</span></div>
+          <div class="progress-text">Progress:</div>
+          <div class="progress">
+            <div class="progress-bar bg-success" role="progressbar" style="width: 50%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">50%</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- WEEKLY SCHED Flexbox content -->
+      <div class="weeklysched">
+        <div class="weeklysched-title">ACTIVITY SCHEDULES</div>
+        <hr width="100%">
+
+        <nav aria-label="Day Navigation">
+          <ul class="pagination">
+            <li class="page-item"><a class="page-link" href="#">Mon</a></li>
+            <li class="page-item"><a class="page-link" href="#">Tues</a></li>
+            <li class="page-item"><a class="page-link" href="#">Wed</a></li>
+            <li class="page-item"><a class="page-link" href="#">Thu</a></li>
+            <li class="page-item"><a class="page-link" href="#">Fri</a></li>
+            <li class="page-item"><a class="page-link" href="#">Sat</a></li>
+          </ul>
+        </nav>
+
+        <h2>Monday</h2>
+        <table class="table table-responsive table-bordered border-dark table-hover text-center text-capitalize" style="font-size: 15px;">
+          <tr class="table-dark table-active text-uppercase text-white">
+            <th>#</th>
+            <th>Time</th>
+            <th>Activity</th>
+            <th>Section</th>
+            <th>Instructor</th>
+          </tr>
+          <tr>
+            <td>1</td>
+            <td>7-9</td>
+            <td>Basketball</td>
+            <td>MMA 201</td>
+            <td>Goyal</td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td>9-11</td>
+            <td>Dance</td>
+            <td>ME 201</td>
+            <td>Bawalan</td>
+          </tr>
+        </table>
+
+      </div>
+      
+      </div>
+
+    </div>
+
+    <!-- JS Bootstrap Offline -->
+    <!-- <script src="Bootstrap/js/bootstrap.min.js"></script> -->
+
+    <script>
+      // JavaScript function to handle logout confirmation
+      function confirmLogout() {
+        if (confirm("Are you sure you want to log out?")) {
+          window.location.href = "homepage.html"; // Redirect to homepage
+        }
+      }
+
+      // Adding click event listener to logout links
+      document.querySelectorAll('.logout-link').forEach(item => {
+        item.addEventListener('click', confirmLogout);
+      });
+    </script>
+
+    <!-- JS Bootstrap Online -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+</body>
+</html>
+
+
+<!-- NOTE KO LANG KUNG PAANO NAGAWA NA NA-ALIGN YUNG FLEXBOX NA ACTIVITY STATUS SA RIGHT-SIDE NI SIDE BAR:
+1. Maglagay ng container div sa taas ng code ni sidebar hanggang sa Div ng dalawang flexbox.
+2. Tanggalin yung both margin left and padding left.
+*Applicable ito sa lahat ng gagawin ko. -->
+
